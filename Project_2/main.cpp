@@ -14,9 +14,12 @@
 using namespace std;
 
 //User Libraries
-void menu(int chips, float betChip, int chipWon);
-void craps(int chips, float betChip, int chipWon); // Craps
-int sumRolD();
+void menu(int, float, int);
+void craps(int, float, int); // Craps
+int sumRolD(); // Roll the two dice and gets the sum of both of them
+void oddBet(int, int, int, int, int, float, int);
+void odBetPL(int , int , int , int , float , int );
+void odbeDPL(int , int , int , int , float , int );
 
 //Global Constants, no Global Variables are allowed
 const int begchip = 100;
@@ -42,10 +45,9 @@ int main(int argc, char** argv)
     in >> name;    
     cout << "Welcome to crabs " << name << "." << endl;
     chips = begchip;  
-    // Loop until the user doesn't want to play
+    
     menu(chips, betChip, chipWon);
-    
-    
+       
     out << "You left the casino with " << chips;
     //Exit stage right or left!
     in.close();
@@ -109,6 +111,7 @@ void craps(int chips, float betChip, int chipWon)
     bool stop;         // Stops the program
     int result;
     
+    // Loop until the user doesn't want to play
     do   
     { 
         cout << "You can bet on:" << endl;
@@ -144,7 +147,7 @@ void craps(int chips, float betChip, int chipWon)
                         cin >> betChip;
                     }
                                      
-                    sumOfDe = sumRolD(); // Roll the two dice and gets the sum of both of them
+                    sumOfDe = sumRolD(); 
                     
                     fDiceRw = sumOfDe;
                     cout << " " << endl;
@@ -175,97 +178,8 @@ void craps(int chips, float betChip, int chipWon)
                         cout << "Do you want to make a odd bet? Yes/No:" << endl;
                         cin >> OddBet;
                         if(tolower(OddBet[0]) == 'y') // If the user input starts with Y or y it would go inside   
-                        {   
-                            
-                            if(chips != 0)  // Checks for the user has more then 0 chis to play
-                            {
-                                cout << "You have " << chips << " chips." << endl;
-                                cout << "How much chips do you want to bet on your odd Bet:" << endl;
-                                cin >> btCOdd;
-                                cout << " " << endl;
-                              
-                                while(btCOdd > chips) // Doesn't let the user to input more chips than he has
-                                {
-                                    cout << "You don't have that many chips." << endl;
-                                    cout << "You have " << chips << " chips." << endl;
-                                    cout << "Enter an amount of chips that you have:" << endl;
-                                    cin >> btCOdd;
-                                    cout << " " << endl;
-                                }
-                                
-                                sumOfDe = sumRolD(); // Roll the two dice and gets the sum of both of them
-                                
-                                fDiceRw =  sumOfDe;
-                                cout << "Your  bet is set on " << fDiceRw << endl;
-                                chips -= btCOdd;
-
-                                cout << " " << endl;
-                                cout << "Rowing the dice until they get " << fDiceRw << " or 7" << endl;
-
-                                // Loop until the dice rows 7 or the first number
-                                do
-                                {
-                                    sumOfDe = sumRolD(); // Roll the two dice and gets the sum of both of them
-                                    
-                                    cout << "The dice rowed " << sumOfDe << endl;
-                                 
-                                    if(sumOfDe == fDiceRw) // Stop the loop when dice get the same number as the first one
-                                    {
-                                        break;
-                                    } 
-                                    
-                                    if(sumOfDe == 7) // Stop the loop when dice get 7
-                                    {
-                                        break;
-                                    }           
-                                }while(sumOfDe != fDiceRw || sumOfDe != 7); 
-                                
-                                // Odd bet on the pass line
-                                if(sumOfDe == fDiceRw && sumOfDe != 7)
-                                {
-                                    // Checking if the rolled dice are equal to 4 or 10
-                                    if(sumOfDe == 4 || sumOfDe == 10) 
-                                    {
-                                        cout << " " << endl;
-                                        cout << "The dice rowed the same number as the first row" << endl;
-                                        cout << "You won your bet and your odd bet" << endl;
-                                        chipWon = betChip * 2 + (btCOdd + (btCOdd * 1.75));
-                                        chips += chipWon;
-                                        cout << "You won " << chipWon << " chips and your total chips are " <<  chips << endl;
-                                    }
-                                    // Checking if the rolled dice are equal to 5 or 9
-                                    else if(sumOfDe == 5 || sumOfDe == 9)
-                                    {
-                                        cout << " " << endl;
-                                        cout << "The dice rowed the same number as the first row" << endl;
-                                        cout << "You won your bet and your odd bet" << endl;
-                                            chipWon = betChip * 2 + (btCOdd + (btCOdd * 1.5));
-                                        chips += chipWon;
-                                        cout << "You won " << chipWon << " chips and your total chips are " <<  chips << endl;
-                                    }
-                                    // Checking if the rolled dice are equal to every other number
-                                    else 
-                                    {
-                                        cout << " " << endl;
-                                        cout << "The dice rowed the same number as the first row" << endl;
-                                        cout << "You won your bet and your odd bet" << endl;
-                                        chipWon = betChip * 2 + (btCOdd + (btCOdd * 1.2));
-                                        chips += chipWon;
-                                        cout << "You won " << fixed << setprecision(6) << showpoint << chipWon << " chips and your total chips are " <<  chips << endl;
-                                    }
-                                }
-                             
-                                if(sumOfDe == 7) // Checking if the rolled dice are equal to 7
-                                {
-                                    cout << " " << endl;
-                                    cout << "You lost your bet and your odd bet" << endl;
-                                    cout << "You lost " << betChip + btCOdd << " chips and your total chips are " <<  chips << endl;
-                                }                                                       
-                            }
-                            else
-                            {
-                                cout << "You don't have enough chips to bet for odd bet" << endl;                    
-                            }                      
+                        {                               
+                           odBetPL(btCOdd, sumOfDe, fDiceRw, chips, betChip, chipWon);               
                         }
                         
                         // Checks for the user has more then 0 chis to play
@@ -474,96 +388,7 @@ void craps(int chips, float betChip, int chipWon)
                     if(tolower(OddBet[0]) == 'y') //// If the user input starts with Y or y it would go inside     
                     {   
                         // Checks for the user has more then 0 chis to play
-                        if(chips != 0)  
-                        {
-                            cout << "You have " << chips << " chips." << endl;
-                            cout << "How much chips do you want to bet on your odd Bet:" << endl;
-                            cin >> btCOdd;
-                            cout << " " << endl;
-
-                            // Doesn't let the user to input more chips than he has
-                            while(btCOdd > chips)
-                            {
-                                cout << "You don't have that many chips." << endl;
-                                cout << "You have " << chips << " chips." << endl;
-                                cout << "Enter an amount of chips that you have:" << endl;
-                                cin >> btCOdd;
-                                cout << " " << endl;
-                            }
-
-                            sumOfDe = sumRolD(); // Roll the two dice and gets the sum of both of them
-
-                            fDiceRw =  sumOfDe;
-                            cout << "Your  bet is set on " << fDiceRw << endl;
-                            chips -= btCOdd;
-
-                            cout << " " << endl;
-                            cout << "Rowing the dice until they get " << fDiceRw << " or 7" << endl;
-
-                            do
-                            {
-                                sumOfDe = sumRolD(); // Roll the two dice and gets the sum of both of them
-
-                                cout << "The dice rowed " << sumOfDe << endl;
-
-                               // Stop the loop when dice get the same number as the first one
-                                if(sumOfDe == fDiceRw)
-                                {
-                                    break;
-                                } 
-
-                                // Stop the loop when dice get 7
-                                if(sumOfDe == 7)
-                                {
-                                    break;
-                                }
-                                // Loop until the dice rows 7 or the first number
-                            }while(sumOfDe != fDiceRw || sumOfDe != 7); 
-
-                            // Odd bet on the don't pass line
-                            if(sumOfDe == fDiceRw && sumOfDe != 7)
-                            {
-                                if(sumOfDe == 4 || sumOfDe == 10)
-                                {
-                                    cout << " " << endl;
-                                    cout << "You lost your , but you won the odd bet" << endl;
-                                    chipWon = btCOdd + (btCOdd * 0.5);
-                                    chips += chipWon;
-                                    cout << "You lost " << betChip << "from your bet and won" + btCOdd << " chips from your odd bet. Your total chips are " <<  chips << endl;
-                                }
-                                else if(sumOfDe == 5 || sumOfDe == 9)
-                                {
-                                    cout << " " << endl;
-                                    cout << "You lost your , but you won the odd bet" << endl;
-                                    chipWon = btCOdd + (btCOdd * 0.6);
-                                    chips += chipWon;
-                                    cout << "You lost " << betChip << "from your bet and won" + btCOdd << " chips from your odd bet. Your total chips are " <<  chips << endl;
-                                }
-                                else 
-                                {
-                                    cout << " " << endl;
-                                    cout << "You lost your , but you won the odd bet" << endl;
-                                    chipWon = btCOdd + ((int)btCOdd * 0.8);
-                                    chips += chipWon;
-                                    cout << "You lost " << betChip << "from your bet and won" + btCOdd << " chips from your odd bet. Your total chips are " <<  chips << endl;
-                                }       
-                            }
-
-                            // Checks if the number that stop the top loop 7
-                            if(sumOfDe == 7)
-                            {         
-                                cout << " " << endl;
-                                cout << "The dice rowed the same number as the first row" << endl;
-                                cout << "You won your bet and your odd bet" << endl;
-                                chipWon = betChip * 2 + (btCOdd + (btCOdd * 1.75));
-                                chips += chipWon;
-                                cout << "You won " << chipWon << " chips and your total chips are " <<  chips << endl;
-                            }                                                       
-                        }
-                        else
-                        {
-                            cout << "You don't have enough chips to bet for odd bet" << endl;                    
-                        }                      
+                        odBetPL(btCOdd, sumOfDe, fDiceRw, chips, betChip, chipWon);                      
                     }
                     
                     // Checks if the user has more chips then 0 after the odd bet. If yes he can continue playing.
@@ -749,4 +574,152 @@ int sumRolD()
     
     int sumOfDices = diceOne + diceTwo;
     return sumOfDices;  
+}
+
+void oddBet(int plBetCh, int btCOdd, int sumOfDe, int fDiceRw, int chips, float betChip, int chipWon)
+{
+    if(chips != 0)  // Checks for the user has more then 0 chis to play
+    {
+        cout << "You have " << chips << " chips." << endl;
+        cout << "How much chips do you want to bet on your odd Bet:" << endl;
+        cin >> btCOdd;
+        cout << " " << endl;
+
+        while(btCOdd > chips) // Doesn't let the user to input more chips than he has
+        {
+            cout << "You don't have that many chips." << endl;
+            cout << "You have " << chips << " chips." << endl;
+            cout << "Enter an amount of chips that you have:" << endl;
+            cin >> btCOdd;
+            cout << " " << endl;
+        }
+
+        sumOfDe = sumRolD(); // Roll the two dice and gets the sum of both of them
+
+        fDiceRw =  sumOfDe;
+        cout << "Your  bet is set on " << fDiceRw << endl;
+        chips -= btCOdd;
+
+        cout << " " << endl;
+        cout << "Rowing the dice until they get " << fDiceRw << " or 7" << endl;
+
+        // Loop until the dice rows 7 or the first number
+        do
+        {
+            sumOfDe = sumRolD(); // Roll the two dice and gets the sum of both of them
+
+            cout << "The dice rowed " << sumOfDe << endl;
+
+            if(sumOfDe == fDiceRw) // Stop the loop when dice get the same number as the first one
+            {
+                break;
+            } 
+
+            if(sumOfDe == 7) // Stop the loop when dice get 7
+            {
+                break;
+            }           
+        }while(sumOfDe != fDiceRw || sumOfDe != 7); 
+
+        // Odd bet on the pass line
+        if(plBetCh == 1)
+        {
+            odBetPL(btCOdd, sumOfDe, fDiceRw, chips, betChip, chipWon);   
+        }
+        else
+        {
+            odbeDPL(btCOdd, sumOfDe, fDiceRw, chips, betChip, chipWon);
+        }                                                      
+    }
+    else
+    {
+        cout << "You don't have enough chips to bet for odd bet" << endl;                    
+    }
+}
+
+void odBetPL(int btCOdd, int sumOfDe, int fDiceRw, int chips, float betChip, int chipWon)
+{
+    if(sumOfDe == fDiceRw && sumOfDe != 7)
+    {
+        // Checking if the rolled dice are equal to 4 or 10
+        if(sumOfDe == 4 || sumOfDe == 10) 
+        {
+            cout << " " << endl;
+            cout << "The dice rowed the same number as the first row" << endl;
+            cout << "You won your bet and your odd bet" << endl;
+            chipWon = betChip * 2 + (btCOdd + (btCOdd * 1.75));
+            chips += chipWon;
+            cout << "You won " << chipWon << " chips and your total chips are " <<  chips << endl;
+        }
+        // Checking if the rolled dice are equal to 5 or 9
+        else if(sumOfDe == 5 || sumOfDe == 9)
+        {
+            cout << " " << endl;
+            cout << "The dice rowed the same number as the first row" << endl;
+            cout << "You won your bet and your odd bet" << endl;
+            chipWon = betChip * 2 + (btCOdd + (btCOdd * 1.5));
+            chips += chipWon;
+            cout << "You won " << chipWon << " chips and your total chips are " <<  chips << endl;
+        }
+        // Checking if the rolled dice are equal to every other number
+        else 
+        {
+            cout << " " << endl;
+            cout << "The dice rowed the same number as the first row" << endl;
+            cout << "You won your bet and your odd bet" << endl;
+            chipWon = betChip * 2 + (btCOdd + (btCOdd * 1.2));
+            chips += chipWon;
+            cout << "You won " << fixed << setprecision(1) << showpoint << chipWon << " chips and your total chips are " <<  chips << endl;
+        }
+    }
+
+    if(sumOfDe == 7) // Checking if the rolled dice are equal to 7
+    {
+        cout << " " << endl;
+        cout << "You lost your bet and your odd bet" << endl;
+        cout << "You lost " << betChip + btCOdd << " chips and your total chips are " <<  chips << endl;
+    }
+}
+
+
+void odbeDPL(int btCOdd, int sumOfDe, int fDiceRw, int chips, float betChip, int chipWon)
+{
+    if(sumOfDe == fDiceRw && sumOfDe != 7)
+    {
+        if(sumOfDe == 4 || sumOfDe == 10)
+        {
+            cout << " " << endl;
+            cout << "You lost your , but you won the odd bet" << endl;
+            chipWon = btCOdd + (btCOdd * 0.5);
+            chips += chipWon;
+            cout << "You lost " << betChip << "from your bet and won" + btCOdd << " chips from your odd bet. Your total chips are " <<  chips << endl;
+        }
+        else if(sumOfDe == 5 || sumOfDe == 9)
+        {
+            cout << " " << endl;
+            cout << "You lost your , but you won the odd bet" << endl;
+            chipWon = btCOdd + (btCOdd * 0.6);
+            chips += chipWon;
+            cout << "You lost " << betChip << "from your bet and won" + btCOdd << " chips from your odd bet. Your total chips are " <<  chips << endl;
+        }
+        else 
+        {
+            cout << " " << endl;
+            cout << "You lost your , but you won the odd bet" << endl;
+            chipWon = btCOdd + ((int)btCOdd * 0.8);
+            chips += chipWon;
+            cout << "You lost " << betChip << "from your bet and won" + btCOdd << " chips from your odd bet. Your total chips are " <<  chips << endl;
+        }       
+    }
+
+    // Checks if the number that stop the top loop 7
+    if(sumOfDe == 7)
+    {         
+        cout << " " << endl;
+        cout << "The dice rowed the same number as the first row" << endl;
+        cout << "You won your bet and your odd bet" << endl;
+        chipWon = betChip * 2 + (btCOdd + (btCOdd * 1.75));
+        chips += chipWon;
+        cout << "You won " << chipWon << " chips and your total chips are " <<  chips << endl;
+    }
 }
