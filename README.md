@@ -1,2 +1,2 @@
 # Project
-Project_2 - CIS5
+A casino game including craps, roulette, and Random numbers for CIS5 / CIS17A
