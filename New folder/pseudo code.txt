@@ -1,0 +1,388 @@
+Create Libraries
+
+add Function Prototypes
+
+add const int begchip = 100;
+
+main
+	Declare Variables
+	int chips;           
+    	float betChip = 0;   
+    	int chipWon = 0;    
+    	int betsMad = 0;         
+    	char name[100];     
+    	vector<int> vPlBtCh; 
+
+	open files
+
+
+
+	get the input from the files
+	print the file input in the program
+	chips = begchip;    
+
+	call funtion menu(chimenups, betChip, chipWon, betsMad, vPlBtCh);
+	out << "You left the casino with " + chips + "chips";
+
+   	///Exit the code
+   	in.close();
+    	out.close();
+
+function menu
+	Declare Variables
+ 	int roll;  
+    	int gamOpt;
+	
+	print bets
+	cin >> gamOpt; 
+	choose from 
+	1
+		call funtion craps(chips, betChip, chipWon, betsMad, vPlBtCh);
+	choose from 
+	2
+		call funtion roulette( chips,  betChip,  chipWon,  betsMad, vPlBtCh);
+	choose from 
+	3
+		call funtion randNum(chips, betChip, chipWon, betsMad, vPlBtCh);
+	choose from 
+	4
+		break	
+
+function pritBet(int &chips, float &betChip, int &betsMad, vector<int> &vPlBtCh)
+	if (chips == 0)
+		print You are broke and you can't play anymore
+		end program
+		betsMad=betsMad+1;
+		
+		print How much chips do you want to bet
+		input betChip
+		vPlBtCh.push_back(betChip);
+   		 inputUs(betChip);
+		
+		while(betChip > chips)
+		vPlBtCh.pop_back();
+		print You don't have that many chips.
+		print How much chips do you want to bet
+		input betChip
+		vPlBtCh.push_back(betChip);
+   		 inputUs(betChip);
+	chips =chips - betChip;
+
+function sumRolD
+	int diceOne = rand() % 6 + 1; // get a rand num between 1 and 6
+    	int diceTwo = rand() % 6 + 1; // get a rand num between 1 and 6  
+	int sumOfDices = diceOne + diceTwo;
+	return sumOfDices;  
+
+function craps
+
+	print bets
+	choose from 
+	1
+	if (chips == 0)		
+		pritBet(chips, betChip, betsMad, vPlBtCh);
+		
+		firstDiceRow = sumRolD();		
+		print the dice rowed firstDiceRow
+		chips = chips - betChip;
+		
+		if(firstdice = 7 or firstdice == 11)
+		print You won your bet		
+		chipWon = betChip   * 2;
+		chips = chips + chipWon
+		
+		elseif(firstdice = 2 or firstdice = 3 or firstdice = 12)
+		print You lost your bet
+		
+		else
+			// point numbers , odd bets, come bets
+			print This is one of the point numbers
+			print Do you want to make a odd bet? Yes/No:
+			input doOddBet
+			if(doOddBet = 'Yes' or 'y')
+				if(chips is different then 0)
+					print How much chips do you want to bet on your odd Bet:
+					input betchisonOdd
+					
+					while(betChisOnOdd > chips)
+					print You don't have that many chips.
+					print How much chips do you want to bet
+					input betchisonOdd
+					
+					row dice one = Get a rand num between 1 and 6 for dice
+					row dice two = Get a rand num between 1 and 6 for dice
+					sumOfDice = diceOne + diceTwo;
+					
+					firstDiceRow = sumOfDice;					
+					print Your  bet is set on firstDiceRow
+					
+					print Rowing the dice until they get firstDiceRow or 7
+					
+					do
+						sumOfDice = 0;
+						row dice one = Get a rand num between 1 and 6 for dice
+						row dice two = Get a rand num between 1 and 6 for dice     
+						sumOfDice = diceOne + diceTwo; 
+						
+						print The dice rowed  sumOfDice						
+					while(sumOfDice is not equal to firstDiceRow or sumOfDice is not equal to 7)
+				
+					if(sumOfDice = firstDiceRow and sumOfDice is not equal to 7)
+						if(sumOfDice = 4 or sumOfDice = 10) 
+							print The dice rowed the same number as the first row
+							print You won your bet and your odd bet
+							chipWon = betChip * 2 + (betchisonOdd + (betchisonOdd * 1.75));
+							chips = chips + chipWon;
+						
+						else if(sumOfDice = 5 or sumOfDice = 9)
+							print The dice rowed the same number as the first row
+							print You won your bet and your odd bet
+							chipWon = betChip * 2 + (betchisonOdd + (betchisonOdd * 1.5));
+							chips = chips + chipWon;
+						
+						else
+							print The dice rowed the same number as the first row
+							print You won your bet and your odd bet
+							chipWon = betChip * 2 + (betchisonOdd + (betchisonOdd * 1.2));
+							chips = chips + chipWon;
+					
+					if(sumOfDice = 7)
+					print You lost your bet and your odd bet
+					
+				else
+					print You don't have enough chips to bet for odd bet
+			
+
+		
+		if(chips = 0)
+			print You are broke and you can't play anymore
+			
+		print "Do you want to make a come bet? Yes/No:
+		input doComeBet
+		for(ComeBet; doComeBet = 'Yes' or 'y')
+			if(chips is different then 0)
+				print How much chips do you want to bet on your odd Bet:
+				input betchisonOdd
+				
+				while(betChisOnOdd > chips)
+				print You don't have that many chips.
+				print How much chips do you want to bet
+				input betchisonOdd
+				
+				row dice one = Get a rand num between 1 and 6 for dice
+				row dice two = Get a rand num between 1 and 6 for dice
+				sumOfDice = diceOne + diceTwo;
+				
+				secondDiceRow = sumOfDice;					
+				print Your  bet is set on secondDiceRow
+				chips = chips - betchisonOdd;
+				
+				if (secondDiceRow = 7 or  secondDiceRow = 11)
+					print You won your bet
+					chipWon = betchisonOdd * 2;
+					chips = chips + chipWon;
+				
+				else if(secondDiceRow = 2 or secondDiceRow = 3 or secondDiceRow = 12)
+					print You lost your bet
+					
+				else
+					do
+						sumOfDice = 0;
+						row dice one = Get a rand num between 1 and 6 for dice
+						row dice two = Get a rand num between 1 and 6 for dice     
+						sumOfDice = diceOne + diceTwo; 
+						
+						print The dice rowed  sumOfDice						
+					
+					while(sumOfDice is not equal to secondDiceRow or sumOfDice is not equal to 7)
+					
+					if(sumOfDe = 7)
+						print The dice rowed the same number as the first row
+						print You lost your bet
+
+					if(sumOfDe = secondDiceRow)
+						print You won your bet
+						chipWon = betChip * 2;
+						chips = chips + chipWon;
+						
+			else
+					print You don't have enough chips to bet for odd bet
+			stop program
+		
+		do
+			sumOfDice = 0;
+			row dice one = Get a rand num between 1 and 6 for dice
+			row dice two = Get a rand num between 1 and 6 for dice     
+			sumOfDice = diceOne + diceTwo; 
+			
+			print The dice rowed  sumOfDice						
+		while(sumOfDice is not equal to firstDiceRow or sumOfDice is not equal to 7)
+
+		if(sumOfDe = fDiceRw and sumOfDe is not equal to 7)
+		print You won your bet
+		chipWon = betChip * 2;
+		chips = chips + chipWon;
+		
+		if(sumOfDe = 7)
+		print You lost your bet
+	stop the loop
+	2
+		pritBet(chips, betChip, betsMad, vPlBtCh);
+		
+		row dice one = Get a rand num between 1 and 6 for dice
+		row dice two = Get a rand num between 1 and 6 for dice
+		sumOfDice = diceOne + diceTwo
+		
+		firstDiceRow = sumOfDice;		
+		print the dice rowed firstDiceRow
+		chips = chips - betChip;
+		
+		if(firstdice = 2 or firstdice == 3)
+		print You won your bet		
+		chipWon = betChip   * 2;
+		chips = chips + chipWon
+		
+		elseif(firstdice = 7 or firstdice = 1 )
+		print You lost your bet
+		
+		else if (firstdice = 12)
+		print It is a tie		
+		chipWon = betChip;
+		chips = chips + chipWon
+		
+		else
+			// point numbers , odd bets, come bets
+			print This is one of the point numbers
+			print Do you want to make a odd bet? Yes/No:
+			input doOddBet
+			if(doOddBet = 'Yes' or 'y')
+				if(chips is different then 0)
+					print How much chips do you want to bet on your odd Bet:
+					input betchisonOdd
+					
+					while(betChisOnOdd > chips)
+					print You don't have that many chips.
+					print How much chips do you want to bet
+					input betchisonOdd
+					
+					row dice one = Get a rand num between 1 and 6 for dice
+					row dice two = Get a rand num between 1 and 6 for dice
+					sumOfDice = diceOne + diceTwo;
+					
+					firstDiceRow = sumOfDice;					
+					print Your  bet is set on firstDiceRow
+					
+					print Rowing the dice until they get firstDiceRow or 7
+					
+					do
+						sumOfDice = 0;
+						row dice one = Get a rand num between 1 and 6 for dice
+						row dice two = Get a rand num between 1 and 6 for dice     
+						sumOfDice = diceOne + diceTwo; 
+						
+						print The dice rowed  sumOfDice						
+					while(sumOfDice is not equal to firstDiceRow or sumOfDice is not equal to 7)
+				
+					if(sumOfDice = firstDiceRow and sumOfDice is not equal to 7)
+						if(sumOfDice = 4 or sumOfDice = 10) 
+							print The dice rowed the same number as the first row
+							print You lost your , but you won the odd bet
+							chipWon = betChip * 2 + (betchisonOdd + (betchisonOdd * 0.6));
+							chips = chips + chipWon;
+						
+						else if(sumOfDice = 5 or sumOfDice = 9)
+							print The dice rowed the same number as the first row
+							print You lost your , but you won the odd bet
+							chipWon = betChip * 2 + (betchisonOdd + (betchisonOdd * 0.8));
+							chips = chips + chipWon;
+						
+						else
+							print The dice rowed the same number as the first row
+							print You lost your , but you won the odd bet
+							chipWon = betChip * 2 + (betchisonOdd + (betchisonOdd * 0.5));
+							chips = chips + chipWon;
+					
+					if(sumOfDice = 7)
+					print You won your bet and your odd bet
+					chipWon = betChip * 2 + (betchisonOdd + (betchisonOdd * 1.75));
+					chips = chips + chipWon;
+					
+				else
+					print You don't have enough chips to bet for odd bet
+			
+
+		
+		if(chips = 0)
+			print You are broke and you can't play anymore
+			
+		print "Do you want to make a come bet? Yes/No:
+		input doComeBet
+		for(ComeBet; doComeBet = 'Yes' or 'y')
+			if(chips is different then 0)
+				print How much chips do you want to bet on your odd Bet:
+				input betchisonOdd
+				
+				while(betChisOnOdd > chips)
+				print You don't have that many chips.
+				print How much chips do you want to bet
+				input betchisonOdd
+				
+				row dice one = Get a rand num between 1 and 6 for dice
+				row dice two = Get a rand num between 1 and 6 for dice
+				sumOfDice = diceOne + diceTwo;
+				
+				secondDiceRow = sumOfDice;					
+				print Your  bet is set on secondDiceRow
+				chips = chips - betchisonOdd;
+				
+				if (secondDiceRow = 7 or  secondDiceRow = 11)
+					print You won your bet
+					chipWon = betchisonOdd * 2;
+					chips = chips + chipWon;
+				
+				else if(secondDiceRow = 2 or secondDiceRow = 3 or secondDiceRow = 12)
+					print You lost your bet
+					
+				else
+					do
+						sumOfDice = 0;
+						row dice one = Get a rand num between 1 and 6 for dice
+						row dice two = Get a rand num between 1 and 6 for dice     
+						sumOfDice = diceOne + diceTwo; 
+						
+						print The dice rowed  sumOfDice						
+					
+					while(sumOfDice is not equal to secondDiceRow or sumOfDice is not equal to 7)
+					
+					if(sumOfDe = 7)
+						print The dice rowed the same number as the first row
+						print You lost your bet
+
+					if(sumOfDe = secondDiceRow)
+						print You won your bet
+						chipWon = betChip * 2;
+						chips = chips + chipWon;
+						
+			else
+					print You don't have enough chips to bet for odd bet
+			stop program
+		
+		do
+			sumOfDice = 0;
+			row dice one = Get a rand num between 1 and 6 for dice
+			row dice two = Get a rand num between 1 and 6 for dice     
+			sumOfDice = diceOne + diceTwo; 
+			
+			print The dice rowed  sumOfDice						
+		while(sumOfDice is not equal to firstDiceRow or sumOfDice is not equal to 7)
+
+		if(sumOfDe = fDiceRw and sumOfDe is not equal to 7)
+		print You won your bet
+		chipWon = betChip * 2;
+		chips = chips + chipWon;
+		
+		if(sumOfDe = 7)
+		print You lost your bet
+	stop the loop
+
+
